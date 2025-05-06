@@ -1,3 +1,6 @@
+let dayImage, nightImage;
+
+
 let scene = 1;
 
 let dragging = false;
@@ -15,12 +18,16 @@ let fadeInLyric = 0;
 let rainStartTime;
 let rainWords = [];
 
+function preload() {
+  dayImage = loadImage('day.jpg');     // adjust path if needed
+  nightImage = loadImage('night.jpg'); // adjust path if needed
+}
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textFont('absans');
   textSize(65);
   textAlign(LEFT, TOP);
-  bgColor = color(255, 248, 235);
   dragY = height - 80;
   startTime = millis();
 }
@@ -32,9 +39,11 @@ function draw() {
   let darkText = color(30, 30, 30);
 
   if (scene === 1) {
-    drawScene1(lightCream, darkText);
+    image(dayImage, 0, 0, width, height);
+    drawScene1();
   } else if (scene === 2) {
-    drawScene2(lightCream, darkText);
+    image(nightImage, 0, 0, width, height);
+    drawScene2();
   }
 }
 
@@ -103,7 +112,6 @@ function drawScene2(lightCream, darkText) {
     }
   }
 
-  // Update and draw rain words
   for (let i = rainWords.length - 1; i >= 0; i--) {
     let r = rainWords[i];
     r.y += r.speed;

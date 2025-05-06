@@ -1,6 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    <!-- Add this inside <head> -->
+<link rel="preload" href="assets/day.jpg" as="image">
+<link rel="preload" href="assets/night.jpg" as="image">
+
+<link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+  }
+
+  nav {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+  }
+
+  nav a {
+    color: white;
+    margin-right: 10px;
+    text-decoration: none;
+    font-family: sans-serif;
+  }
+</style>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
