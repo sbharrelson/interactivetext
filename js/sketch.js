@@ -18,7 +18,7 @@ let rainWords = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   textFont('absans');
-  textSize(45);
+  textSize(65);
   textAlign(LEFT, TOP);
   bgColor = color(255, 248, 235);
   dragY = height - 80;
@@ -84,14 +84,13 @@ function drawScene1(lightCream, darkText) {
 function drawScene2(lightCream, darkText) {
   background(10, 20, 50);
 
-  // Main poetic line with glow
   textAlign(CENTER, TOP);
-  textSize(45);
+  textSize();
   
   text("of lyric rain", width / 2, 40);
   drawingContext.shadowBlur = 0;
 
-  // Generate "rain" words for 3 seconds
+
   if (millis() - rainStartTime < 3000) {
     if (frameCount % 2 === 0) {
       rainWords.push({
@@ -120,7 +119,7 @@ function drawScene2(lightCream, darkText) {
     text("rain", r.x, r.y);
   }
 
-  textSize(32);
+  textSize(45);
 }
 
 function mousePressed() {
