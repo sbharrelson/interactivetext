@@ -8,22 +8,43 @@
     let dayImg;
 
     function preload() {
-      dayImg = loadImage('img/day.jpg');
+      // Updated to use the new image
+      dayImg = loadImage('img/rain.background.jpg');
     }
 
     function setup() {
       createCanvas(windowWidth, windowHeight);
-    }
-
-    function draw() {
-      background(255);
-      image(dayImg, 0, 0, width, height);
-
-      fill(30, 30, 30);
+      imageMode(CENTER); // Center the background image
       textFont('absans');
       textSize(40);
       textAlign(CENTER, CENTER);
-      text("a new day...", width / 2, height / 2);
+    }
+
+    function draw() {
+      // Draw background image, scaled to cover the entire canvas proportionally
+      let canvasRatio = width / height;
+      let imgRatio = dayImg.width / dayImg.height;
+      let drawWidth, drawHeight;
+
+      if (canvasRatio > imgRatio) {
+        drawWidth = width;
+        drawHeight = width / imgRatio;
+      } else {
+        drawHeight = height;
+        drawWidth = height * imgRatio;
+      }
+
+      image(dayImg, width / 2, height / 2, drawWidth, drawHeight);
+
+      let x = mouseX;
+      let y = mouseY;
+      let ix = width - mouseX;
+      let iy = height - mouseY;
+
+      fill(30, 30, 30);
+
+      text("I have so loved the rain", x, height / 2 - 30);
+      text("that I would hold", ix, height / 2 + 30);
     }
 
     function windowResized() {
@@ -31,5 +52,5 @@
     }
   </script>
 </head>
-<body></body>
+<body style="margin:0; padding:0; overflow:hidden;"></body>
 </html>

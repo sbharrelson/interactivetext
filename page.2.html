@@ -5,31 +5,100 @@
   <title>Page 3 - Day Reset</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
   <script>
-    let dayImg;
+    let bgImg;
+    let arrowImg;
+    let string1 = "and singing breezes";
+    let string2 = "when my bell is tolled";
+    let currentCharacter1 = 0;
+    let currentCharacter2 = 0;
+    let isSecondPhraseStarted = false;
+    let showArrow = false;
+    let arrowOpacity = 0;
+
+    let arrowX, arrowY, arrowW = 40, arrowH = 40;
 
     function preload() {
-      dayImg = loadImage('img/day.jpg');
+      bgImg = loadImage('img/breeze.jpg'); // ✅ NEW BACKGROUND IMAGE
+      arrowImg = loadImage('img/arrow2.png');
     }
 
     function setup() {
       createCanvas(windowWidth, windowHeight);
+      imageMode(CENTER);
+      textFont('absans');
+      textSize(80);
+      textAlign(CENTER, CENTER);
+      updateArrowPosition();
     }
 
     function draw() {
-      background(255);
-      image(dayImg, 0, 0, width, height);
+      // Scale and draw background
+      let canvasRatio = width / height;
+      let imgRatio = bgImg.width / bgImg.height;
+      let drawWidth, drawHeight;
 
-      fill(30, 30, 30);
-      textFont('absans');
-      textSize(40);
-      textAlign(CENTER, CENTER);
-      text("a new day...", width / 2, height / 2);
+      if (canvasRatio > imgRatio) {
+        drawWidth = width;
+        drawHeight = width / imgRatio;
+      } else {
+        drawHeight = height;
+        drawWidth = height * imgRatio;
+      }
+
+      image(bgImg, width / 2, height / 2, drawWidth, drawHeight);
+
+      fill(255);
+
+      let currentString1 = string1.substring(0, currentCharacter1);
+      text(currentString1, width / 4, height / 4);
+
+      if (currentCharacter1 >= string1.length) {
+        isSecondPhraseStarted = true;
+        let currentString2 = string2.substring(0, currentCharacter2);
+        text(currentString2, 3 * width / 4, 3 * height / 4);
+      }
+
+      if (currentCharacter1 < string1.length) {
+        currentCharacter1 += 0.1;
+      } else if (currentCharacter2 < string2.length) {
+        currentCharacter2 += 0.1;
+      } else {
+        showArrow = true;
+      }
+
+      if (showArrow && arrowOpacity < 255) {
+        arrowOpacity += 3;
+      }
+
+      if (arrowOpacity > 0) {
+        push();
+        tint(255, arrowOpacity);
+        imageMode(CORNER);
+        image(arrowImg, arrowX, arrowY, arrowW, arrowH);
+        pop();
+      }
+    }
+
+    function mousePressed() {
+      if (
+        arrowOpacity >= 255 &&
+        mouseX >= arrowX && mouseX <= arrowX + arrowW &&
+        mouseY >= arrowY && mouseY <= arrowY + arrowH
+      ) {
+        window.location.href = "page.3.html";
+      }
     }
 
     function windowResized() {
       resizeCanvas(windowWidth, windowHeight);
+      updateArrowPosition();
+    }
+
+    function updateArrowPosition() {
+      arrowX = width - arrowW - 20;
+      arrowY = height - arrowH - 20;
     }
   </script>
 </head>
-<body></body>
+<body style="margin:0; padding:0; overflow:hidden;"></body>
 </html>
